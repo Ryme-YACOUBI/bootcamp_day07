@@ -1,15 +1,17 @@
 import time
 import random
+import sys
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--penalties", type=int, default=12)
+parser.add_argument("--length", type=int, default=5)
+args = parser.parse_args()
 def hangman():
-    print('Choose number of max penalties : ')
-    max_penalty=int(input())
-    while True:
-        print('Choose the length of the word (between 3 and 12) : ')
-        l=int(input())
-        if l>=3 and l<=12:
-            break
-        else:
-            print('Choose a length between 3 and 12')
+    max_penalty = args.penalties
+    l= args.length
+    if l<3 or l>12:
+        print('Choose a length between 3 and 12')
+        return
     mots_theme=[]
     liste_mots_themes = []
     liste_mots=[]
@@ -37,7 +39,7 @@ def hangman():
     while penalty<max_penalty:
         count=0
         ch1=input("$> ")
-        if time.time() - start >= 10:
+        if time.time() - start >= 200:
             print("Time finished!")
             return
         guesses+=ch1
